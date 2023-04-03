@@ -67,11 +67,12 @@ export default function App() {
   if (signer !== undefined) {
     getWalletAddress();
   }
+  console.log(inputAmount);
 
   const getSwapPrice = async (inputAmount) => {
     setLoading(true);
+    console.log(inputAmount);
     setInputAmount(inputAmount);
-
     const swap = getPrice(
       inputAmount,
       slippageAmount,
