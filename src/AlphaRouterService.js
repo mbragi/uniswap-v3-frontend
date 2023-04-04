@@ -8,9 +8,8 @@ const {
 const { ethers, BigNumber } = require("ethers");
 const JSBI = require("jsbi"); // jsbi@3.2.5
 const ERC20ABI = require("./abi.json");
-
-const V3_SWAP_ROUTER_ADDRESS = "0xE592427A0AEce92De3Edee1F18E0157C05861564"; // taken from "SwapRouter02 (1.1.0)" => "https://docs.uniswap.org/protocol/reference/deployments"
 const REACT_APP_ALCHEMY_URL_TESTNET = process.env.REACT_APP_ALCHEMY_URL_TESTNET;
+const V3_SWAP_ROUTER_ADDRESS = "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984"; // taken from "SwapRouter02 (1.1.0)" => "https://docs.uniswap.org/protocol/reference/deployments"
 console.log(REACT_APP_ALCHEMY_URL_TESTNET);
 const chainId = 5;
 
@@ -53,7 +52,7 @@ export const getPrice = async (
     slippageTolerance: percentSlippage,
     deadline: deadline,
   });
-
+  console.log(route.methodParameters.calldata);
   const transaction = {
     data: route.methodParameters.calldata,
     to: V3_SWAP_ROUTER_ADDRESS,
