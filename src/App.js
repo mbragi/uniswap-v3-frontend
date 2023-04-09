@@ -79,7 +79,7 @@ export default function App() {
       Math.floor(Date.now() / 1000 + deadLineMinutes * 60),
       signerAddress
     ).then((data) => {
-      setTransaction(data[0]);
+      // setTransaction(data[0]);
       setOutputAmount(data[1]);
       setRatio(data[2]);
       setLoading(false);

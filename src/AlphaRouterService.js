@@ -1,4 +1,4 @@
-const { AlphaRouter } = require("@uniswap/smart-order-router");
+const { AlphaRouter, SwapType } = require("@uniswap/smart-order-router");
 const {
   Token,
   CurrencyAmount,
@@ -51,22 +51,23 @@ export const getPrice = async (
     recipient: walletAddress,
     slippageTolerance: percentSlippage,
     deadline: deadline,
+    type: SwapType.SWAP_ROUTER_02,
   });
-  console.log(route.methodParameters.calldata);
-  const transaction = {
-    data: route.methodParameters.calldata,
-    to: V3_SWAP_ROUTER_ADDRESS,
-    value: BigNumber.from(route.methodParameters.value),
-    from: walletAddress,
-    gasPrice: BigNumber.from(route.gasPriceWei),
-    gasLimit: ethers.utils.hexlify(1000000), // this gas limit is very high but we can put some lower value on Mainnet
-  };
+  console.log(route);
+  // const transaction = {
+  //   data: route.methodParameters.calldata,
+  //   to: V3_SWAP_ROUTER_ADDRESS,
+  //   value: BigNumber.from(route.methodParameters.value),
+  //   from: walletAddress,
+  //   gasPrice: BigNumber.from(route.gasPriceWei),
+  //   gasLimit: ethers.utils.hexlify(1000000), // this gas limit is very high but we can put some lower value on Mainnet
+  // };
 
   // building a little data below here that will display in the UI so we'll say...
   const quoteAmountOut = route.quote.toFixed(6);
   const ratio = (inputAmount / quoteAmountOut).toFixed(3);
 
-  return [transaction, quoteAmountOut, ratio];
+  return [quoteAmountOut, ratio];
 };
 
 // Now creating the transaction that actually runs the swap
